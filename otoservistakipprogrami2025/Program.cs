@@ -1,0 +1,54 @@
+using Microsoft.EntityFrameworkCore;
+using otoservistakipprogrami2025.DAL;
+using otoservistakipprogrami2025.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<OtoServisDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseSession(); // Sadece bir kez
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Account}/{action=Login}/{id?}");
+
+// Test kullanýcýsý oluþtur
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<OtoServisDbContext>();
+    if (!context.Users.Any())
+    {
+        context.Users.Add(new User
+        {
+            Ad = "admin",
+            Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+            KayitTarihi = DateTime.Now
+        });
+        context.SaveChanges();
+    }
+}
+
+app.Run(); // Sadece bir kez

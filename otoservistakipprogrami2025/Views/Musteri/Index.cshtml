@@ -1,0 +1,74 @@
+﻿@model IEnumerable<otoservistakipprogrami2025.Models.Musteri>
+@{
+    ViewData["Title"] = "Müşteri Listesi";
+}
+<h1>Müşteri Listesi</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Müşteri Ekle</a>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Admin Paneline Dön
+    </a>
+</p>
+<p>
+    Kayıtlı Müşteri sayısı: @Model.Count()
+</p>
+
+
+@foreach (var musteri in Model)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>@musteri.Ad @musteri.Soyad</h5>
+            <small class="text-muted">@musteri.Telefon | @musteri.Email | Kayıt: @musteri.KayitTarihi.ToShortDateString()</small>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>Kayıtlı Araçları:</h6>
+                    @if (musteri.Araclar != null && musteri.Araclar.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Plaka</th>
+                                        <th>Marka/Model</th>
+                                        <th>Yıl</th>
+                                        <th>Renk</th>
+                                        <th>İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var arac in musteri.Araclar)
+                                    {
+                                        <tr>
+                                            <td><strong>@arac.AracPlaka</strong></td>
+                                            <td>@arac.AracMarka @arac.AracModel</td>
+                                            <td>@arac.AracModelYili</td>
+                                            <td>@arac.AracRenk</td>
+                                            <td>
+                                                <a asp-controller="Aracs" asp-action="Details" asp-route-id="@arac.AracId"
+                                                   class="btn btn-xs btn-info">Detay</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Bu müşteriye ait kayıtlı araç bulunmuyor.</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@musteri.MusteriId" class="btn btn-sm btn-warning">Düzenle</a>
+            <a asp-action="Details" asp-route-id="@musteri.MusteriId" class="btn btn-sm btn-info">Detaylar</a>
+            <a asp-action="Delete" asp-route-id="@musteri.MusteriId" class="btn btn-sm btn-danger">Sil</a>
+            <a asp-controller="Aracs" asp-action="Create" asp-route-MusteriId="@musteri.MusteriId"
+               class="btn btn-sm btn-success">Araç Ekle</a>
+        </div>
+    </div>
+}

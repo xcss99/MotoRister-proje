@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header"><h5>Hızlı Erişim</h5></div>
+                <div class="list-group list-group-flush">
+                    <a href="@Url.Action("Index", "Musteri")" class="list-group-item list-group-item-action">
+                        <i class="fas fa-users"></i> Müşteriler
+                    </a>
+                    <a href="@Url.Action("Index", "ServisKaydis")" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tools"></i> Servis Kayıtları
+                    </a>
+                    <a href="@Url.Action("Index", "Aracs")" class="list-group-item list-group-item-action">
+                        <i class="fas fa-car"></i> Araçlar
+                    </a>
+                    <a href="@Url.Action("Index", "Parcas")" class="list-group-item list-group-item-action">
+                        <i class="fas fa-cog"></i> Parçalar
+                    </a>
+                    <a href="@Url.Action("Index", "ParcaKullanimis")" class="list-group-item list-group-item-action">
+                        <i class="fas fa-list"></i> Parça Kullanımları
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Admin Paneli </h2>
+                    <p class="lead">MotoRister Servis yönetim paneline hoş geldiniz.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <h5>Sistemde aktif olan özelliklerin listesi:</h5>
+                                    <ul class="list-unstyled">
+                                        <li>✓ Müşteri Yönetimi</li>
+                                        <li>✓ Araç Kayıtları</li>
+                                        <li>✓ Servis Takibi</li>
+                                        <li>✓ Parça Yönetimi</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5>Hoş geldin, @Context.Session.GetString("KullaniciAdi")!</h5>
+                                    <p>Sol menüden veya üstteki navbar'dan istediğin bölüme erişebilirsin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

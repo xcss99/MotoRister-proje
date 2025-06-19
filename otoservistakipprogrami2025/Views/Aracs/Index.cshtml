@@ -1,0 +1,83 @@
+﻿@model IEnumerable<otoservistakipprogrami2025.Models.Arac>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Araç Listesi</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Araç Ekle</a>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Admin Paneline Dön
+    </a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AracPlaka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracMarka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracModelYili)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracSasiNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracMotorNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AracRenk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Musteri)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracPlaka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracMarka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracModelYili)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracSasiNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracMotorNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AracRenk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Musteri.Ad)
+            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AracId" class="btn btn-sm btn-warning">Düzenle</a>
+                    <a asp-action="Details" asp-route-id="@item.AracId" class="btn btn-sm btn-info">Detaylar</a>
+                    <a asp-action="Delete" asp-route-id="@item.AracId" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+
+        </tr>
+}
+    </tbody>
+</table>

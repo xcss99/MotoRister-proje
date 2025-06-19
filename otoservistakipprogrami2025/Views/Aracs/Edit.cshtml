@@ -1,0 +1,69 @@
+﻿@model otoservistakipprogrami2025.Models.Arac
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Arac</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AracId" />
+            <div class="form-group">
+                <label asp-for="AracPlaka" class="control-label"></label>
+                <input asp-for="AracPlaka" class="form-control" />
+                <span asp-validation-for="AracPlaka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracMarka" class="control-label"></label>
+                <input asp-for="AracMarka" class="form-control" />
+                <span asp-validation-for="AracMarka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracModel" class="control-label"></label>
+                <input asp-for="AracModel" class="form-control" />
+                <span asp-validation-for="AracModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracModelYili" class="control-label"></label>
+                <input asp-for="AracModelYili" class="form-control" />
+                <span asp-validation-for="AracModelYili" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracSasiNo" class="control-label"></label>
+                <input asp-for="AracSasiNo" class="form-control" />
+                <span asp-validation-for="AracSasiNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracMotorNo" class="control-label"></label>
+                <input asp-for="AracMotorNo" class="form-control" />
+                <span asp-validation-for="AracMotorNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AracRenk" class="control-label"></label>
+                <input asp-for="AracRenk" class="form-control" />
+                <span asp-validation-for="AracRenk" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MusteriId" class="control-label"></label>
+                <select asp-for="MusteriId" class="form-control" asp-items="ViewBag.MusteriId"></select>
+                <span asp-validation-for="MusteriId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

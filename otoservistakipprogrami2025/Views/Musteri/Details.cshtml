@@ -1,0 +1,67 @@
+﻿@model otoservistakipprogrami2025.Models.Musteri
+@{
+    ViewData["Title"] = "Müşteri Detayları";
+}
+
+<h1>Müşteri Detayları</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Ad)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Ad)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Soyad)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Soyad)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Telefon)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Telefon)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Adres)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Adres)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.KayitTarihi)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.KayitTarihi)</dd>
+    </dl>
+
+    <h3 class="mt-4">Araçlar</h3>
+    @if (Model.Araclar != null && Model.Araclar.Any())
+    {
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Plaka</th>
+                    <th>Marka</th>
+                    <th>Model</th>
+                    <th>Model Yılı</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var arac in Model.Araclar)
+                {
+                    <tr>
+                        <td>@arac.AracPlaka</td>
+                        <td>@arac.AracMarka</td>
+                        <td>@arac.AracModel</td>
+                        <td>@arac.AracModelYili</td>
+                        <td>
+                            <a asp-controller="Arac" asp-action="Details" asp-route-id="@arac.AracId" class="btn btn-sm btn-info">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Bu müşteriye ait araç bulunmamaktadır.</p>
+    }
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.MusteriId" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>

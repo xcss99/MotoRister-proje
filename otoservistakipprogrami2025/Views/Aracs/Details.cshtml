@@ -1,0 +1,66 @@
+﻿@model otoservistakipprogrami2025.Models.Arac
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Arac</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracPlaka)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracPlaka)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracMarka)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracMarka)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracModel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracModel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracModelYili)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracModelYili)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracSasiNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracSasiNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracMotorNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracMotorNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AracRenk)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AracRenk)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Musteri)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Musteri.Ad)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.AracId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

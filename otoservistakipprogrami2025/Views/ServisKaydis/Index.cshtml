@@ -1,0 +1,75 @@
+﻿@model IEnumerable<otoservistakipprogrami2025.Models.ServisKaydi>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Servis Kayıtları</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Servis Kaydı Ekle</a>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Admin Paneline Dön
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GelisTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TeslimTarihi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GelisSebebi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YapilanIslemler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToplamTutar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServisDurumu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Arac)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GelisTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeslimTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GelisSebebi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YapilanIslemler)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToplamTutar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServisDurumu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arac.AracMarka)
+            </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detaylar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Hoşgeldiniz, @Context.Session.GetString("KullaniciAdi")</h1>
+        <p>Giriş başarılı! Menülerden istediğiniz bölüme gidebilirsiniz.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Müşteriler</h5>
+                <a href="/Musteri" class="btn btn-primary">Müşteri Listesi</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Araçlar</h5>
+                <a href="/Aracs" class="btn btn-primary">Araç Listesi</a>
+            </div>
+        </div>
+    </div>
+</div>

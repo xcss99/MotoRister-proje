@@ -1,0 +1,134 @@
+﻿@model LoginViewModel
+@{
+    Layout = null; // Ana layout kullanma
+    ViewData["Title"] = "Giriş";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - OtoServis Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Animasyonlu Arkaplan İkonları -->
+        <div class="bg-images">
+            <div class="floating-image">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="floating-image">
+                <i class="fas fa-tools"></i>
+            </div>
+            <div class="floating-image">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="floating-image">
+                <i class="fas fa-wrench"></i>
+            </div>
+            <div class="floating-image">
+                <i class="fas fa-oil-can"></i>
+            </div>
+        </div>
+
+        <!-- Kayan Özellik Kartları -->
+        <div class="features-slider">
+            <div class="feature-card">
+                <i class="fas fa-calendar-check"></i>
+                <h6>Randevu Yönetimi</h6>
+                <small>Kolay randevu planlama ve takip sistemi</small>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h6>Müşteri Takibi</h6>
+                <small>Detaylı müşteri kayıtları ve geçmiş</small>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-car-side"></i>
+                <h6>Araç Kayıtları</h6>
+                <small>Tüm araç bilgileri ve servis geçmişi</small>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h6>Raporlama</h6>
+                <small>Detaylı iş ve gelir raporları</small>
+            </div>
+        </div>
+
+        <!-- Login Kartı -->
+        <div class="login-card">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <h1 class="logo-text">OtoServis Pro</h1>
+                <p class="logo-subtitle">Profesyonel Oto Servis Takip Sistemi</p>
+            </div>
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                }
+
+                <div class="form-floating mb-3">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-posta", required = "required" })
+                    <label for="Email">
+                        <i class="fas fa-envelope me-2"></i>E-posta
+                    </label>
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-floating mb-3">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Şifre", required = "required" })
+                    <label for="Password">
+                        <i class="fas fa-lock me-2"></i>Şifre
+                    </label>
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-check mb-3">
+                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                    <label for="RememberMe" class="form-check-label">
+                        Beni Hatırla
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login w-100">
+                    <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+                </button>
+
+                <div class="text-center mt-3">
+                    <a href="#" class="text-decoration-none">Şifremi Unuttum</a>
+                </div>
+            }
+        </div>
+
+        <!-- İstatistikler -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Aktif Kullanıcı</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">10K+</span>
+                <span class="stat-label">Servis Kaydı</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Müşteri Memnuniyeti</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/login.js"></script>
+</body>
+</html>
