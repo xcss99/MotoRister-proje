@@ -46,6 +46,7 @@ try
             context.Users.Add(new User
             {
                 Ad = "admin",
+                Email = "admin@test.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                 KayitTarihi = DateTime.Now
             });
