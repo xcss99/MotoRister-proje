@@ -111,8 +111,8 @@ namespace otoservistakipprogrami2025.Controllers
             {
                 try
                 {
-                    
-                   _context.Musteriler.Update(musteri);
+
+                    _context.Musteriler.Update(musteri);
                     await _context.SaveChangesAsync();
 
                 }
@@ -156,7 +156,13 @@ namespace otoservistakipprogrami2025.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var musteri = await _context.Musteriler.FindAsync(id);
-            _ = _context.Musteriler.Remove(entity: musteri);
+
+            if (musteri == null)
+            {
+                return NotFound(); // Veya RedirectToAction(nameof(Index));
+            }
+
+            _context.Musteriler.Remove(musteri);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

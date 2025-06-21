@@ -20,35 +20,43 @@ namespace otoservistakipprogrami2025.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel? model)
         {
             Console.WriteLine($"Login POST çağrıldı - Email: {model?.Email}");
 
-            if (ModelState.IsValid)
+            if (model == null || !ModelState.IsValid)
             {
-                Console.WriteLine("ModelState geçti");
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.IsActive);
-
-                Console.WriteLine($"User bulundu: {user != null}");
-
-                if (user != null && user.Password == model.Password) // BCrypt.Verify yerine
+                if (model == null)
                 {
-                    Console.WriteLine("Şifre doğru, session kaydediliyor");
-                    HttpContext.Session.SetString("UserId", user.UserId.ToString());
-                    HttpContext.Session.SetString("KullaniciAdi", user.Ad + " " + user.Soyad);
-                    return RedirectToAction("Index", "Admin");
+                    Console.WriteLine("Model null geldi");
+                    ViewBag.ErrorMessage = "Geçersiz istek!";
                 }
                 else
                 {
-                    Console.WriteLine("Kullanıcı bulunamadı veya şifre yanlış");
-                    ViewBag.ErrorMessage = "E-posta veya şifre hatalı!";
+                    Console.WriteLine("ModelState geçersiz");
                 }
+                return View(model);
+            }
+
+            Console.WriteLine("ModelState geçti");
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == model.Email && u.IsActive);
+
+            Console.WriteLine($"User bulundu: {user != null}");
+
+            if (user != null && user.Password == model.Password) // BCrypt.Verify yerine
+            {
+                Console.WriteLine("Şifre doğru, session kaydediliyor");
+                HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                HttpContext.Session.SetString("KullaniciAdi", user.Ad + " " + user.Soyad);
+                return RedirectToAction("Index", "Admin");
             }
             else
             {
-                Console.WriteLine("ModelState geçersiz");
+                Console.WriteLine("Kullanıcı bulunamadı veya şifre yanlış");
+                ViewBag.ErrorMessage = "E-posta veya şifre hatalı!";
             }
+
             return View(model);
         }
     }
