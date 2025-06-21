@@ -36,19 +36,31 @@ app.MapControllerRoute(
     pattern: "{controller=Account}/{action=Login}/{id?}");
 
 // Test kullanýcýsý oluþtur
-using (var scope = app.Services.CreateScope())
+try
 {
-    var context = scope.ServiceProvider.GetRequiredService<OtoServisDbContext>();
-    if (!context.Users.Any())
+    using (var scope = app.Services.CreateScope())
     {
-        context.Users.Add(new User
+        var context = scope.ServiceProvider.GetRequiredService<OtoServisDbContext>();
+        if (!context.Users.Any())
         {
-            Ad = "admin",
-            Password = BCrypt.Net.BCrypt.HashPassword("123456"),
-            KayitTarihi = DateTime.Now
-        });
-        context.SaveChanges();
+            context.Users.Add(new User
+            {
+                Ad = "admin",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                KayitTarihi = DateTime.Now
+            });
+            context.SaveChanges();
+        }
     }
 }
+catch (Exception ex)
+{
+    // Hata mesajýný dosyaya yaz (Azure'da göremeyebiliriz ama dursun)
+    File.AppendAllText("log.txt", ex.ToString());
+
+    // Alternatif olarak debug mesajý:
+    Console.WriteLine("HATA: " + ex.Message);
+}
+
 
 app.Run(); // Sadece bir kez
