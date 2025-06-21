@@ -41,6 +41,7 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<OtoServisDbContext>();
+        context.Database.Migrate();
         if (!context.Users.Any())
         {
             context.Users.Add(new User
