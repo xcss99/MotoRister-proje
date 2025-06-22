@@ -8,8 +8,6 @@ using otoservistakipprogrami2025.Filters;
 
 namespace otoservistakipprogrami2025.Controllers
 {
-    [AdminAuthorize]
-
     public class MusteriController : Controller
     {
         private readonly OtoServisDbContext _context;

@@ -3,8 +3,7 @@ using otoservistakipprogrami2025.Filters;
 
 namespace otoservistakipprogrami2025.Models
 {
-    [AdminAuthorize]
-
+    
     public class User 
     {
         public int UserId { get; set; }

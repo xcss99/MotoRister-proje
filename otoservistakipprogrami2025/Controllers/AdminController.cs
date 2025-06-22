@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using otoservistakipprogrami2025.Filters;
 
-[AdminAuthorize]
 public class AdminController : Controller
 {
     public IActionResult Index()

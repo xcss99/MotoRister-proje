@@ -11,8 +11,6 @@ using otoservistakipprogrami2025.Models;
 
 namespace otoservistakipprogrami2025.Controllers
 {
-    [AdminAuthorize]
-
     public class ParcasController : Controller
     {
         private readonly OtoServisDbContext _context;
