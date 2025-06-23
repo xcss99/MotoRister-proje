@@ -1,30 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http.Extensions;
+using otoservistakipprogrami2025.DAL;
+using otoservistakipprogrami2025.Models;
 
-namespace YourProjectName.Controllers // Proje isminizle değiştirin
+namespace otoservistakipprogrami2025.Controllers
 {
     public class DebugController : Controller
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<DebugController> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly DbContext _context; // DbContext'inizin tipini yazın (örnek: ApplicationDbContext)
+        private readonly OtoServisDbContext _context;
 
         public DebugController(
             IConfiguration configuration,
             ILogger<DebugController> logger,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            DbContext context) // DbContext tipinizi yazın
+            OtoServisDbContext context)
         {
             _configuration = configuration;
             _logger = logger;
-            _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 
@@ -35,16 +29,10 @@ namespace YourProjectName.Controllers // Proje isminizle değiştirin
             {
                 var debugInfo = new
                 {
-                    // Authentication bilgileri
-                    IsAuthenticated = User.Identity.IsAuthenticated,
-                    UserName = User.Identity.Name,
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-
-                    // Claims bilgileri
-                    Claims = User.Claims.Select(c => new {
-                        Type = c.Type,
-                        Value = c.Value
-                    }).ToList(),
+                    // Session bilgileri (Identity yerine Session kullanıyorsunuz)
+                    HasSessionUserId = HttpContext.Session.GetString("UserId") != null,
+                    SessionUserId = HttpContext.Session.GetString("UserId"),
+                    SessionUserEmail = HttpContext.Session.GetString("UserEmail"),
 
                     // Connection String kontrolü
                     HasConnectionString = !string.IsNullOrEmpty(_configuration.GetConnectionString("DefaultConnection")),
@@ -62,9 +50,9 @@ namespace YourProjectName.Controllers // Proje isminizle değiştirin
                     // Cookie bilgileri
                     Cookies = Request.Cookies.Keys.ToList(),
 
-                    // SignIn Manager durumu
-                    SignInManagerType = _signInManager.GetType().Name,
-                    UserManagerType = _userManager.GetType().Name
+                    // Session bilgileri
+                    SessionId = HttpContext.Session.Id,
+                    SessionKeys = HttpContext.Session.Keys.ToList()
                 };
 
                 _logger.LogInformation("Debug endpoint called: {@DebugInfo}", debugInfo);
@@ -91,12 +79,10 @@ namespace YourProjectName.Controllers // Proje isminizle değiştirin
 
                 if (canConnect)
                 {
-                    // Bu kısmı kendi DbSet'lerinize göre düzenleyin
-                    /*
+                    // Kendi tablolarınızı kontrol edin
                     tableInfo.Add("Users", await _context.Users.CountAsync());
-                    tableInfo.Add("Roles", await _context.Roles.CountAsync());
-                    // Diğer tablolarınızı ekleyin
-                    */
+                    // Başka tablolarınız varsa ekleyin
+                    // tableInfo.Add("Araclar", await _context.Araclar.CountAsync());
                 }
 
                 var dbInfo = new
@@ -155,27 +141,28 @@ namespace YourProjectName.Controllers // Proje isminizle değiştirin
             {
                 _logger.LogInformation("Test login attempt for: {Email}", model.Email);
 
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                // Kendi User modelinizle kullanıcı bulma
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == model.Email);
+
                 if (user == null)
                 {
                     return Json(new { Success = false, Message = "User not found" });
                 }
 
-                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                // Basit şifre kontrolü (gerçek uygulamada hash kullanın)
+                bool passwordMatch = user.Password == model.Password;
 
                 var loginResult = new
                 {
-                    Success = result.Succeeded,
-                    IsLockedOut = result.IsLockedOut,
-                    RequiresTwoFactor = result.RequiresTwoFactor,
-                    IsNotAllowed = result.IsNotAllowed,
+                    Success = passwordMatch,
+                    UserFound = true,
                     User = new
                     {
-                        user.Id,
+                        user.UserId,
                         user.Email,
-                        user.EmailConfirmed,
-                        user.LockoutEnabled,
-                        LockoutEnd = user.LockoutEnd?.ToString()
+                        user.Ad,
+                        user.KayitTarihi
                     }
                 };
 
