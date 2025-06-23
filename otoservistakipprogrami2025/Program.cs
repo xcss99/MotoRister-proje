@@ -52,7 +52,7 @@ try
             {
                 Ad = "admin",
                 Email = "admin@test.com",
-                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                Password = "123456",
                 KayitTarihi = DateTime.Now
             });
             context.SaveChanges();
