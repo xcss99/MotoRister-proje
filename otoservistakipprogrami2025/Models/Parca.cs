@@ -28,6 +28,6 @@ namespace otoservistakipprogrami2025.Models
 
         // İlişkiler
         [ValidateNever]
-        public virtual ICollection<ParcaKullanimi> Kullanimlar { get; set; }
+        public virtual ICollection<ParcaKullanimi>? Kullanimlar { get; set; }
     }
 }

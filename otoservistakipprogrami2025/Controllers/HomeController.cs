@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using otoservistakipprogrami2025.Filters;
 using otoservistakipprogrami2025.Models;
 using System.Diagnostics;
 

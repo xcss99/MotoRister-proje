@@ -41,10 +41,10 @@ namespace otoservistakipprogrami2025.Models
         public int MusteriId { get; set; }
 
         [ValidateNever]
-        public virtual Musteri Musteri { get; set; }
+        public virtual Musteri? Musteri { get; set; }
 
         [ValidateNever]
-        public virtual ICollection<ServisKaydi> ServisKayitlari { get; set; }
+        public virtual ICollection<ServisKaydi>? ServisKayitlari { get; set; }
 
         // Plaka, marka ve model birleşimi için yardımcı özellik
         [Display(Name = "Araç")]

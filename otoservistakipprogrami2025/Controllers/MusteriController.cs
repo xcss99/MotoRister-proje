@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using otoservistakipprogrami2025.Models;
 using otoservistakipprogrami2025.DAL;
-using otoservistakipprogrami2025.Filters;
 
 namespace otoservistakipprogrami2025.Controllers
 {

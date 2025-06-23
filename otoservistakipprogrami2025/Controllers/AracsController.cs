@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using otoservistakipprogrami2025.DAL;
-using otoservistakipprogrami2025.Filters;
 using otoservistakipprogrami2025.Models;
 
 namespace otoservistakipprogrami2025.Controllers

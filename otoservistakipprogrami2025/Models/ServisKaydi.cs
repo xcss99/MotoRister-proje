@@ -37,7 +37,7 @@ namespace otoservistakipprogrami2025.Models
         public int AracId { get; set; }
 
         [ValidateNever]
-        public virtual Arac Arac { get; set; }
+        public virtual Arac? Arac { get; set; }
 
         [ValidateNever]
         public virtual ICollection<ParcaKullanimi>? KullanilanParcalar { get; set; }

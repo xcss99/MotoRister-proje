@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using otoservistakipprogrami2025.Filters;
 
 namespace otoservistakipprogrami2025.Models
 {

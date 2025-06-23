@@ -24,10 +24,10 @@ namespace otoservistakipprogrami2025.Models
 
         // İlişkiler
         [ValidateNever]
-        public virtual Parca Parca { get; set; }
+        public virtual Parca? Parca { get; set; }
 
         [ValidateNever]
-        public virtual ServisKaydi ServisKaydi { get; set; }
+        public virtual ServisKaydi? ServisKaydi { get; set; }
 
         // Toplam fiyat için hesaplanan özellik
         [Display(Name = "Toplam Fiyat")]
