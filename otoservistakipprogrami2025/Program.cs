@@ -14,8 +14,8 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Azure için ZORUNLU
-    options.Cookie.SameSite = SameSiteMode.Lax; // Azure için ZORUNLU
+    options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Azure için ZORUNLU
+    options.Cookie.SameSite = SameSiteMode.None; // Azure için ZORUNLU
     options.Cookie.Name = "SessionCookie"; // Ýsteðe baðlý
 });
 
@@ -28,7 +28,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession(); // Sadece bir kez

@@ -2,7 +2,6 @@
 using otoservistakipprogrami2025.DAL;
 using otoservistakipprogrami2025.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 
 namespace otoservistakipprogrami2025.Controllers
 {
@@ -35,41 +34,30 @@ namespace otoservistakipprogrami2025.Controllers
                 else
                 {
                     Console.WriteLine("ModelState geçersiz");
-                    ViewBag.ErrorMessage = "Lütfen tüm alanları doğru doldurunuz!";
                 }
                 return View(model);
             }
 
-            try
+            Console.WriteLine("ModelState geçti");
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == model.Email && u.IsActive);
+
+            Console.WriteLine($"User bulundu: {user != null}");
+
+            if (user != null && user.Password == model.Password) // BCrypt.Verify yerine
             {
-                var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.IsActive);
-
-                Console.WriteLine($"Kullanıcı sorgulandı: {(user != null ? "Bulundu" : "Bulunamadı")}");
-
-                if (user != null && user.Password == model.Password) // (Hashleme kullanmıyorsan böyle bırak)
-                {
-                    Console.WriteLine("Giriş başarılı, Session başlatılıyor");
-
-                    HttpContext.Session.SetString("UserId", user.UserId.ToString());
-                    HttpContext.Session.SetString("UserEmail", user.Email);
-                    HttpContext.Session.SetString("UserName", $"{user.Ad} {user.Soyad}");
-
-                    return RedirectToAction("Index", "Admin");
-                }
-                else
-                {
-                    Console.WriteLine("Şifre hatalı veya kullanıcı yok");
-                    ViewBag.ErrorMessage = "E-posta veya şifre hatalı!";
-                    return View(model);
-                }
+                Console.WriteLine("Şifre doğru, session kaydediliyor");
+                HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                HttpContext.Session.SetString("KullaniciAdi", user.Ad + " " + user.Soyad);
+                return RedirectToAction("Index", "Admin");
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Login hatası: {ex.Message}");
-                ViewBag.ErrorMessage = "Bir hata oluştu. Lütfen tekrar deneyin.";
-                return View(model);
+                Console.WriteLine("Kullanıcı bulunamadı veya şifre yanlış");
+                ViewBag.ErrorMessage = "E-posta veya şifre hatalı!";
             }
+
+            return View(model);
         }
     }
 }
