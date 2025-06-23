@@ -69,9 +69,9 @@
                 <p class="logo-subtitle"> Oto Servis Takip Sitesi</p>
             </div>
 
-            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            @using (Html.BeginForm("Index", "Admin", FormMethod.Post))  /////////
             {
-                @Html.AntiForgeryToken()
+                //@Html.AntiForgeryToken()
 
                 @if (ViewBag.ErrorMessage != null)
                 {
@@ -94,12 +94,12 @@
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-check mb-3">
-                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
-                    <label for="RememberMe" class="form-check-label">
-                        Beni Hatırla
-                    </label>
-                </div>
+                //<div class="form-check mb-3">
+                    //@Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                    //<label for="RememberMe" class="form-check-label">
+                       // Beni Hatırla
+                    //</label>
+                //</div>
 
                 <button type="submit" class="btn btn-primary btn-login w-100">
                     <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
