@@ -17,6 +17,8 @@ builder.Services.AddSession(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.None; // Azure için ZORUNLU
     options.Cookie.SameSite = SameSiteMode.None; // Azure için ZORUNLU
     options.Cookie.Name = "SessionCookie"; // Ýsteðe baðlý
+    options.Cookie.Domain = ".azurewebsites.net";
+
 });
 
 var app = builder.Build();

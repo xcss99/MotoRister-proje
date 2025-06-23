@@ -49,6 +49,7 @@ namespace otoservistakipprogrami2025.Controllers
                 Console.WriteLine("Şifre doğru, session kaydediliyor");
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
                 HttpContext.Session.SetString("KullaniciAdi", user.Ad + " " + user.Soyad);
+                Console.WriteLine("Login başarılı! Admin/Index'e yönlendiriliyor...");////
                 return RedirectToAction("Index", "Admin");
             }
             else
